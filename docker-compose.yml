@@ -42,7 +42,7 @@ services:
     networks:
     - postgres-network 
     depends_on:
-    - pgadmin
+    - postgresql
 
 networks:
   postgres-network:

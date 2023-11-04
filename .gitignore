@@ -1,1 +1,3 @@
 .vscode/
+/pgadmin/pgadmin-data/
+/postgresql/db-data/

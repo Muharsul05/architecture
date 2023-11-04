@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-slim
-RUN mkdir /opt/app
-COPY *.jar /opt/app
-CMD ["java", "-jar", "/opt/app/test.jar"]
+FROM openjdk:21
+WORKDIR /opt/app
+ADD /backend-service/test.jar .
+CMD ["java","-jar","test.jar"]
