@@ -39,6 +39,8 @@ services:
     user: root
     ports:
     - 8080:8080
+    env_file:
+      - ./backend-service/.env
     networks:
     - postgres-network 
     depends_on:

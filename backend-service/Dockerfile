@@ -1,4 +1,10 @@
+FROM alpine/git:latest
+WORKDIR /git-clone
+RUN git clone https://github.com/Muharsul05/backend-service.git 
+
+
 FROM openjdk:21
-WORKDIR /opt/app
-ADD /backend-service/test.jar .
-CMD ["java","-jar","test.jar"]
+COPY --from=0 /git-clone/backend-service /opt/app/
+WORKDIR /opt/app/
+RUN chmod +x ./mvnw
+CMD ["./mvnw", "spring-boot:run"]
