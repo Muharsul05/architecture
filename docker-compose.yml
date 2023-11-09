@@ -1,9 +1,13 @@
 version: "3"
+
 services:
+  
   postgresql:
     container_name: postgresql
     image: 'postgres:latest'
     user: root
+    environment:
+      PGDATA: /var/lib/postgresql/data/test/
     ports:
       - 15432:5432
     env_file:
@@ -45,6 +49,27 @@ services:
     - postgres-network 
     depends_on:
     - postgresql
+  
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    networks:
+      - postgres-network
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    networks:
+      - postgres-network
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
 
 networks:
   postgres-network:
