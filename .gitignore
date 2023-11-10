@@ -1,3 +1,4 @@
 .vscode/
 /pgadmin/pgadmin-data/
 /postgresql/db-data/
+/backend-service/maven_local_repo/

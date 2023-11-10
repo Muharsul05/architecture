@@ -49,6 +49,8 @@ services:
     - postgres-network 
     depends_on:
     - postgresql
+    volumes:
+      - ./backend-service/maven_local_repo/:/root/.m2/
   
   prometheus:
     image: prom/prometheus
