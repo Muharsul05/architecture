@@ -42,15 +42,30 @@ services:
     container_name: backend-service
     user: root
     ports:
-    - 8080:8080
+      - 8080:8080
     env_file:
       - ./backend-service/.env
     networks:
-    - postgres-network 
+      - postgres-network 
     depends_on:
-    - postgresql
+      - postgresql
     volumes:
       - ./backend-service/maven_local_repo/:/root/.m2/
+
+  blog:
+    build:
+      context: .
+      dockerfile: ./blog/Dockerfile
+    restart: always
+    container_name: blog
+    user: root
+    ports:
+      - 2121:2121
+    networks:
+      - postgres-network
+    volumes:
+      - ./blog/node_modules/:/opt/app/blog/node-modules
+
   
   prometheus:
     image: prom/prometheus
@@ -61,6 +76,7 @@ services:
       - postgres-network
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    
 
   grafana:
     build:
